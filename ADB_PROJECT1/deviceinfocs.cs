@@ -10,7 +10,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using FastReport;
+using FastReport.Data;
+using FastReport.Export.PdfSimple;
 namespace ADB_PROJECT1
 {
     public partial class deviceinfocs : Form
@@ -85,6 +87,57 @@ namespace ADB_PROJECT1
                 return process.StandardOutput.ReadToEnd();
             }
         }
+        private void ExportDeviceInfoToPDF()
+        {
+            using (SqlConnection conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Android;Integrated Security=True;"))
+            {
+                conn.Open();
+
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM dbo.deviceinfo", conn);
+                DataTable table = new DataTable("deviceinfo");
+                adapter.Fill(table);
+
+                Report report = new Report();
+
+                report.RegisterData(table, "deviceinfo");
+                report.GetDataSource("deviceinfo").Enabled = true;
+
+                // Create report page manually
+                ReportPage page = new ReportPage();
+                report.Pages.Add(page);
+
+                // Create DataBand and bind it
+                DataBand dataBand = new DataBand
+                {
+                    Name = "DataBand1",
+                    DataSource = report.GetDataSource("deviceinfo"),
+                    Height = 30 // height in pixels
+                };
+                page.Bands.Add(dataBand);
+
+                float x = 0;
+                float colWidth = 100;
+
+                foreach (DataColumn col in table.Columns)
+                {
+                    TextObject textObject = new TextObject();
+                    textObject.Bounds = new RectangleF(x, 0, colWidth, 20);
+                    textObject.Text = $"[deviceinfo.{col.ColumnName}]";
+                    textObject.Border.Lines = BorderLines.All;
+                    dataBand.Objects.Add(textObject);
+                    x += colWidth;
+                }
+
+                report.Prepare();
+
+                PDFSimpleExport pdfExport = new PDFSimpleExport();
+                report.Export(pdfExport, "DeviceInfoReport33.pdf");
+
+                MessageBox.Show("PDF Report exported successfully.");
+                conn.Close();
+            }
+        }
+
 
         private void LoadDeviceInfoToGrid()
         {
@@ -104,6 +157,7 @@ namespace ADB_PROJECT1
             MessageBox.Show(cputext.Length.ToString());
             SaveDetailedCPUInfoToDB(cputext);
             LoadDeviceInfoToGrid();
+            ExportDeviceInfoToPDF();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

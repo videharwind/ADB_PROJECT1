@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="2025-05-09" ReportInfo.Modified="05/09/2025 15:27:48" ReportInfo.CreatorVersion="2025.2.0.0">
+  <Dictionary>
+    <TableDataSource Name="CPUInfo" ReferenceName="CPUInfo" DataType="System.Int32" Enabled="true">
+      <Column Name="processor" DataType="System.Int32"/>
+      <Column Name="BogoMIPS" DataType="System.String"/>
+      <Column Name="Features" DataType="System.String"/>
+      <Column Name="CPUimplementer" DataType="System.String"/>
+      <Column Name="CPUarchitecture" DataType="System.String"/>
+      <Column Name="CPUvariant" DataType="System.String"/>
+      <Column Name="CPUpart" DataType="System.String"/>
+      <Column Name="CPUrevision" DataType="System.String"/>
+    </TableDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="proc" Top="18.9" Width="56.7" Height="18.9" Text="proc&#13;&#10;" Font="Arial, 10pt"/>
+      <TextObject Name="Text10" Left="66.15" Top="18.9" Width="66.15" Height="18.9" Text="BOGO" Font="Arial, 10pt"/>
+      <TextObject Name="Text11" Left="132.3" Top="18.9" Width="94.5" Height="18.9" Text="Features" Font="Arial, 10pt"/>
+      <TextObject Name="Text12" Left="236.25" Top="18.9" Width="75.6" Height="18.9" Text="Implementer" Font="Arial, 10pt"/>
+      <TextObject Name="Text13" Left="321.3" Top="9.45" Width="56.7" Height="28.35" Text="architec&#13;&#10;ture&#13;&#10;" Font="Arial, 10pt"/>
+      <TextObject Name="Text14" Left="387.45" Top="18.9" Width="56.7" Height="18.9" Text="varient" Font="Arial, 10pt"/>
+      <TextObject Name="Text15" Left="463.05" Top="18.9" Width="66.15" Height="18.9" Text="part" Font="Arial, 10pt"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="41.8" Width="718.2" Height="292.95" DataSource="CPUInfo">
+      <TextObject Name="Text2" Width="60" Height="28.35" Text="[CPUInfo.processor]" Font="Arial, 10pt"/>
+      <TextObject Name="Text3" Left="65" Width="60" Height="28.35" Text="[CPUInfo.BogoMIPS]" Font="Arial, 10pt"/>
+      <TextObject Name="Text4" Left="130" Width="100" Height="28.35" Text="[CPUInfo.Features]" Font="Arial, 10pt"/>
+      <TextObject Name="Text5" Left="235" Width="60" Height="28.35" Text="[CPUInfo.CPUimplementer]" Font="Arial, 10pt"/>
+      <TextObject Name="Text6" Left="318.9" Width="60" Height="28.35" Text="[CPUInfo.CPUarchitecture]" Font="Arial, 10pt"/>
+      <TextObject Name="Text7" Left="383.9" Width="60" Height="28.35" Text="[CPUInfo.CPUvariant]" Font="Arial, 10pt"/>
+      <TextObject Name="Text8" Left="467.8" Width="60" Height="28.35" Text="[CPUInfo.CPUpart]" Font="Arial, 10pt"/>
+      <TextObject Name="Text9" Left="542.25" Top="85.05" Width="60" Height="28.35" Text="[CPUInfo.CPUrevision]" Font="Arial, 10pt"/>
+      <TextObject Name="Text1" Left="330.75" Top="255.15" Width="718.2" Height="37.8" Text="[Date]" HorzAlign="Center" Font="Arial, 14pt, style=Bold"/>
+      <TextObject Name="Text17" Left="822.15" Top="207.9" Width="94.5" Height="18.9" Text="[Hour()]" Font="Arial, 10pt"/>
+      <TextObject Name="Text18" Left="9.45" Top="274.05" Width="94.5" Height="18.9" Text="[Minute()]" Font="Arial, 10pt"/>
+      <TextObject Name="Text19" Left="113.4" Top="274.05" Width="94.5" Height="18.9" Text="[Hour()]" Font="Arial, 10pt"/>
+      <TextObject Name="Text16" Left="548.1" Width="56.7" Height="18.9" Text="revision" Font="Arial, 10pt"/>
+    </DataBand>
+  </ReportPage>
+</Report>
