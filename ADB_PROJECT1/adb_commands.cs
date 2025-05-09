@@ -85,69 +85,7 @@ namespace ADB_PROJECT1
             }
         }
 
-        /*public void SaveCallLogsToDB(string adbOutput)
-        {
-            List<CallLog> logs = new List<CallLog>();
-            string[] entries = adbOutput.Split(new[] { "Row " }, StringSplitOptions.RemoveEmptyEntries);
-            int maxLogs = 5;
-
-            foreach (string entry in entries)
-            {
-                if (logs.Count >= maxLogs)
-                    break;
-
-                Match idMatch = Regex.Match(entry, @"_id=(\d+)");
-                Match numberMatch = Regex.Match(entry, @"number=(.+)");
-                Match typeMatch = Regex.Match(entry, @"type=(\d+)");
-                Match durationMatch = Regex.Match(entry, @"duration=(\d+)");
-
-                if (idMatch.Success && numberMatch.Success && typeMatch.Success && durationMatch.Success)
-                {
-                    CallLog log = new CallLog
-                    {
-                        Id = int.Parse(idMatch.Groups[1].Value),
-                        PhoneNumber = numberMatch.Groups[1].Value.Trim(),
-                        CallType = typeMatch.Groups[1].Value switch
-                        {
-                            "1" => "Incoming",
-                            "2" => "Outgoing",
-                            "3" => "Missed",
-                            _ => "Unknown"
-                        },
-                        Duration = durationMatch.Groups[1].Value
-                    };
-                    logs.Add(log);
-                }
-            }
-
-            MessageBox.Show("Logs parsed: " + logs.Count);
-
-            using (SqlConnection conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Android;Integrated Security=True;"))
-            {
-                conn.Open();
-                foreach (var c in logs)
-                {
-                    string checkQuery = "SELECT COUNT(*) FROM dbo.CallLogs WHERE Id = @Id";
-                    SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
-                    checkCmd.Parameters.AddWithValue("@Id", c.Id);
-                    int exists = (int)checkCmd.ExecuteScalar();
-
-                    if (exists == 0)
-                    {
-                        string insertQuery = "INSERT INTO dbo.CallLogs (Id, PhoneNumber, CallType, Duration) VALUES (@Id, @PhoneNumber, @CallType, @Duration)";
-                        SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
-                        insertCmd.Parameters.AddWithValue("@Id", c.Id);
-                        insertCmd.Parameters.AddWithValue("@PhoneNumber", c.PhoneNumber);
-                        insertCmd.Parameters.AddWithValue("@CallType", c.CallType);
-                        insertCmd.Parameters.AddWithValue("@Duration", c.Duration);
-                        insertCmd.ExecuteNonQuery();
-                    }
-                }
-                conn.Close();
-            }
-        }
-        */
-
+        
         public static string ADB_RUN(string argument)
         {
             string adbpath = @"C:\Users\videh\Downloads\platform-tools-latest-windows\platform-tools\adb.exe";
@@ -167,7 +105,7 @@ namespace ADB_PROJECT1
 
         private void LoadCallLogsToGrid()
         {
-            // Load the data from the database
+        
             using (SqlConnection conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Android;Integrated Security=True;"))
             {
                 string query = "SELECT Id, PhoneNumber, CallType, Duration FROM dbo.CallLogs";
@@ -175,7 +113,7 @@ namespace ADB_PROJECT1
                 DataTable dataTable = new DataTable();
                 dataAdapter.Fill(dataTable);
 
-                // Bind the data to DataGridView
+                
                 dataGridView1.DataSource = dataTable;
             }
         }
@@ -191,7 +129,7 @@ namespace ADB_PROJECT1
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Optional: future handling of clicks on rows
+           
         }
     }
 }

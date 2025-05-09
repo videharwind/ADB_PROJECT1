@@ -23,14 +23,14 @@ namespace ADB_PROJECT1
         }
         public void SaveDetailedCPUInfoToDB(string cpuRawText)
         {
-            // Split each core's block
+           
             var coreBlocks = Regex.Split(cpuRawText.Trim(), @"\n\s*\n");
 
             using (SqlConnection conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Android;Integrated Security=True;"))
             {
                 conn.Open();
 
-                // Optional: Clear old records
+              
                 SqlCommand deleteCmd = new SqlCommand("DELETE FROM dbo.deviceinfo", conn);
                 deleteCmd.ExecuteNonQuery();
 
@@ -102,16 +102,16 @@ namespace ADB_PROJECT1
                 report.RegisterData(table, "deviceinfo");
                 report.GetDataSource("deviceinfo").Enabled = true;
 
-                // Create report page manually
+                
                 ReportPage page = new ReportPage();
                 report.Pages.Add(page);
 
-                // Create DataBand and bind it
+                
                 DataBand dataBand = new DataBand
                 {
                     Name = "DataBand1",
                     DataSource = report.GetDataSource("deviceinfo"),
-                    Height = 30 // height in pixels
+                    Height = 30 
                 };
                 page.Bands.Add(dataBand);
 
